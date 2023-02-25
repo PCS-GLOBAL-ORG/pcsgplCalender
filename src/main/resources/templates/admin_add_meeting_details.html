@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert Meeting Info</title>
+</head>
+<body>
+   <form action="/addCalenderInfoDetails" method = "post">
+        <label for ="meetingId">Meeting_Id</label>
+        <input type ="text" name="meetingId"><br>
+        
+        <label for ="meetingCategory">MeetingCategory</label>
+        <select name="meetingCategory">
+               <option value="">Select</option>
+               <option value="global">Global</option>
+               <option value="kolkata">Kolkata</option>
+               <option value="btm">BTM</option>
+               <option value="mahadevpura">Mahadevpura</option>
+        </select><br/>
+        
+        <label for ="meetingOccuranceType">Recurring Meeting</label>
+        <input type="radio" id="yes" name="meetingOccuranceType" value="M">
+        <label for="yes">Yes</label>
+        <input type="radio" id="no" name="meetingOccuranceType" value="S">
+        <label for="no">No</label>
+        <br/>
+        
+        
+<!--         <label for="meetingStartDate">meetingStartDate</label>
+        <input type="date" pattern="yyyy-MM-dd" name="meetingStartDate"><br/>  -->
+        
+<!--         <label for="meetingEndDate">meetingEndDate</label>
+        <input  type="date" pattern="yyyy-MM-dd" name="meetingEndDate"><br/>  -->
+        
+<!--         <label for="meetingStartTime">meetingStartTime</label>
+        <input type="time" pattern="HH:mm" name="meetingStartTime"><br> -->
+
+        
+<!--         <label for="meetingEndTime">meetingEndTime</label>
+        <input type="time" pattern="HH:mm" name="meetingEndTime"><br/>  -->
+        
+        <label for="meetingTitle">meetingTitle</label>
+        <input type ="text" name="meetingTitle"><br/>
+        
+        <label for="meetingShortDesc">meetingShortDesc</label>
+        <input type ="text" name="meetingShortDesc"><br/>
+        
+        <label for="meetingBranch">meetingBranch</label>
+        <input type ="text" name="meetingBranch">
+
+        <button type="submit">Submit</button>
+          
+   </form>
+</body>
+</html>
