@@ -7,5 +7,9 @@ import com.pcsgpl.tc.entity.MeetingCalenderEntity;
 
 @Repository
 public interface MeetingCalenderRepository extends JpaRepository<MeetingCalenderEntity,Integer> {
+	
+	public MeetingCalenderEntity findByMeetingId(String meetingId);
+	
+	
 
 }

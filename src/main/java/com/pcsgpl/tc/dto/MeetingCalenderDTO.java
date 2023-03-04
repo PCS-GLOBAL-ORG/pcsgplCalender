@@ -16,6 +16,12 @@ public class MeetingCalenderDTO implements Serializable {
 	private String meetingTitle;
 	private String meetingShortDesc;
 	private String meetingBranch;
+	
+	private String zoomUrl;
+	private String meetingPasscode;
+	private String meetingStartMeridiem;
+	private String meetingEndMeridiem;
+	
 	public int getId() {
 		return id;
 	}
@@ -81,6 +87,30 @@ public class MeetingCalenderDTO implements Serializable {
 	}
 	public void setMeetingBranch(String meetingBranch) {
 		this.meetingBranch = meetingBranch;
+	}
+	public String getZoomUrl() {
+		return zoomUrl;
+	}
+	public void setZoomUrl(String zoomUrl) {
+		this.zoomUrl = zoomUrl;
+	}
+	public String getMeetingPasscode() {
+		return meetingPasscode;
+	}
+	public void setMeetingPasscode(String meetingPasscode) {
+		this.meetingPasscode = meetingPasscode;
+	}
+	public String getMeetingStartMeridiem() {
+		return meetingStartMeridiem;
+	}
+	public void setMeetingStartMeridiem(String meetingStartMeridiem) {
+		this.meetingStartMeridiem = meetingStartMeridiem;
+	}
+	public String getMeetingEndMeridiem() {
+		return meetingEndMeridiem;
+	}
+	public void setMeetingEndMeridiem(String meetingEndMeridiem) {
+		this.meetingEndMeridiem = meetingEndMeridiem;
 	}
 	
 	

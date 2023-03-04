@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>PCS Global Meeting Calendar</title>
 </head>
 <body bgcolor="8adoff">
 	<div><%@include file="header.jsp"%></div>

@@ -1,4 +1,5 @@
 
+<%@page import="com.pcsgpl.tc.dto.MeetingCalenderDTO"%>
 <body bgcolor="#8ad0ff">
 	<%@include file="header.jsp"%>
 	<%@include file="navbar.jsp"%>
@@ -8,30 +9,30 @@
 
 			<fieldset style="width: 600px; align: center">
 				<legend> Meeting Registration Window</legend>
+				
+				     <%
+				     
+				         if(request.getAttribute("calender_info_by_meeting_id")!=null){
+				        	 
+				        	 MeetingCalenderDTO  metingCalenderDTO  =(MeetingCalenderDTO) request.getAttribute("calender_info_by_meeting_id");
+				        	 
+				        	 
+				        	 %>
+				        	  
+				        	
+				
+				
+				
+				
 				       <table style="align: center; width: 100%" border="0">
-					        <tr>
-						        <th colspan="2">
-							       <%
-							         if (request.getAttribute("message") != null) {
-							         %> <%=request.getAttribute("message")%> <% }
-							        %>
-						         </th>
-					        </tr>
-					        
+					  					        
 					        <tr>
 						       <td>
 						           <label for="meetingCategory">MeetingCategory </label> 
 						           <font style="color: red">*</font>
 						        </td>
-						        <td>
-							        <select name="meetingCategory" required="required">
-											<option value="">Select</option>
-											<option value="Global">Global</option>
-											<option value="Kolkata">Kolkata</option>
-											<option value="BTM">BTM Layout</option>
-											<option value="Mahadevpura">Mahadevpura</option>
-											<option value="BBS">Bhubaneswar</option>
-							        </select>
+						        <td>							        
+								    <%=metingCalenderDTO.getMeetingTitle()%>
 							     </td>
 					         </tr>
 					         
@@ -41,10 +42,7 @@
 						            <font style="color: red">*</font>
 						         </td>
 						         <td>
-						             <input type="radio" id="yes" name="meetingOccuranceType" value="M">  
-						             <label for="yes">Yes</label>   
-						             <input type="radio" id="no" name="meetingOccuranceType" value="S">
-							         <label for="no">No</label>
+						           <%=metingCalenderDTO.getMeetingOccuranceType()%>
 							     </td>
 					          </tr>
 
@@ -212,6 +210,13 @@
 										&nbsp; <input type="reset" name="Reset" value="Reset" />
 									</td>
 								</tr>
+								 <%
+				         }
+				     
+				     
+				     
+				     %>
+				
 				  </table>
 			</fieldset>
 		</form>
