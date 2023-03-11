@@ -10,6 +10,6 @@ public interface MeetingCalenderRepository extends JpaRepository<MeetingCalender
 	
 	public MeetingCalenderEntity findByMeetingId(String meetingId);
 	
-	
+
 
 }

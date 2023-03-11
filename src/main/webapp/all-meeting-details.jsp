@@ -1,7 +1,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<body bgcolor="8adoff">
+<!--  <body bgcolor="8adoff">  -->
+ <body style="color: #fff;
+    background: -webkit-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -webkit-radial-gradient(farthest-corner at 0% 0%,#4884FA 70%, #2F6FED 70%);
+    background: -o-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -o-radial-gradient(farthest-corner at 0% 0%, #4884FA 70%, #2F6FED 70%);
+    background: -moz-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -moz-radial-gradient(farthest-corner at 0% 0%, #4884FA 70%, #2F6FED 70%);
+    background: linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%,#4884FA 70%,#2F6FED  70%);"
+    > 
 <div align="center">
     <h1>Meeting List</h1>   
     <br/><br/>
@@ -11,7 +17,7 @@
 	        <table style="align:center">
 	            <tr>
 	            <td>
-	        Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+	        Filter: <input type="text" name="keyword" id="keyword" size="50"  required />
 	           </td>
 	           <td>
 	                   <input type="submit" value="Search" />
@@ -23,6 +29,9 @@
 	           </tr>        
 	         </table>
 	    </form>
+	    <% if(request.getAttribute("delete-message") != null){ %>
+	               <%=request.getAttribute("delete-message")%>
+	    <%}%>
     <table style="border-spacing:0;" border="1">	 
         <thead>          
             <tr>
@@ -36,8 +45,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Start Time</th>            
-                <th>End Time</th>           
-                
+                <th>End Time</th>                           
                 <th>Branch</th>
                 <th>Actions</th>  
             </tr>
@@ -60,8 +68,8 @@
                 <td>${calender_info_details.meetingBranch}</td>                               
                 <td>
                     <a href="GetMeetingByMeetingId?meetingId=${calender_info_details.meetingId}" style="text-decoration:none" >View</a>               
-                    <a href="#" style="text-decoration:none">Edit</a>
-                    <a href="#" style="text-decoration:none">Delete</a>                     
+                    <a href="update-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Edit</a>
+                    <a href="delete-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Delete</a>                     
                 </td>
             </tr>
             </c:forEach>  
