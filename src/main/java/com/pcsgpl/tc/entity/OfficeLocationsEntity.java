@@ -8,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
@@ -17,6 +19,8 @@ import lombok.ToString;
 @Data
 @ToString
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name= "office_locations")
 //@NamedQuery(name = "OfficeLocationsEntity.lov",query = "Select branch_code from office_locations")
 public class OfficeLocationsEntity {

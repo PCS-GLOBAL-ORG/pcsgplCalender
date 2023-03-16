@@ -7,6 +7,8 @@ import java.util.Date;
 //import java.util.Date;
 import java.util.List;
 import com.pcsgpl.tc.repository.OfficeLocationsRepository;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ public class MeetingCalenderService {
 	@Autowired
 	OfficeLocationsRepository officeLocationsRepository;
 
+	/* ***********************************  Start Store information ********************************************* */
+	
 	public MeetingCalenderEntity storeMeetingDeatils(MeetingCalenderEntity meetingCalenderEntity) throws Exception {
 
 //		meetingCalenderEntity.setMeetingBranch(meetingCalenderDTO.getMeetingBranch());
@@ -42,6 +46,10 @@ public class MeetingCalenderService {
 		return mEETINGCalenderEntity;
 	}
 
+/* *************************** End Store information *********************************** */	
+	
+/* **************************** Start Get Details Information ************************************** */	
+	
 	public List<MeetingCalenderDTO> getAllMeetingCalenderDetails() {
 		List<MeetingCalenderEntity> listOfMeetingInformation = meetingCalenderrepository.findAll();
 
@@ -86,6 +94,10 @@ public class MeetingCalenderService {
 		return listOfModifiedMeetingInfo;
 	}
 
+	/* *****************************End Get Details Information *********************************** */
+	
+	/* ***************************** Start Get Meeting Information with MeetingId ************************************* */
+	
 	public MeetingCalenderDTO getMeetingCalenderDetailsByMeetingId(String meetingId) {
 		MeetingCalenderEntity meetingInformation = meetingCalenderrepository.findByMeetingId(meetingId);
 
@@ -125,6 +137,10 @@ public class MeetingCalenderService {
 		return meetingCalenderDTO;
 	}
 
+	/* *************************** End Get Meeting Information with MeetingId ******************************* */
+		
+	/* ************************* Start Delete Meeting ********************************* */
+	
 	public boolean deleteMeeting(String meetingId) {
 		boolean returnFlag = false;
 		// MeetingCalenderEntity meetingCalenderEntity = repository.findById(id).get();
@@ -139,37 +155,59 @@ public class MeetingCalenderService {
 		}
 		return returnFlag;
 	}
+	
+	/* *************************** End Delete Meeting ********************************** */	
 
-	public MeetingCalenderEntity updateMeetingDetailsByMeetingId(MeetingCalenderEntity meetingCalenderEntity,String meetingId) {
-//	public MeetingCalenderDTO updateMeetingDetailsByMeetingId(String meetingId) {
-//		MeetingCalenderEntity meetingInformation = repository.findByMeetingId(meetingId);
-//		MeetingCalenderDTO meetingCalenderDTO = new MeetingCalenderDTO();
-//	
+	/* **************************  Start Update Meeting Information  ********************************** */
+		
+	public MeetingCalenderDTO updateMeetingDetailsByMeetingId(String meetingId,MeetingCalenderDTO meetingCalenderDTO ) {
+
+		/*
+		 * boolean returnFlag1 = false;
+		 * 
+		 * MeetingCalenderEntity meetingEdit =
+		 * meetingCalenderrepository.findByMeetingId(meetingId);
+		 * if(meetingId.equals(meetingEdit)){
+		 * meetingCalenderrepository.save(meetingEdit); returnFlag1 = true; }else {
+		 * returnFlag1 = false; }
+		 * 
+		 * return returnFlag1;
+		 */
+		MeetingCalenderEntity meetingInformation = meetingCalenderrepository.findByMeetingId(meetingId);
+
+	//	System.out.println(meetingInformation.getMeetingTitle());
+		
+//		meetingCalenderDTO.setMeetingCategory(meetingInformation.getMeetingCategory());
+//		meetingCalenderDTO.setMeetingOccuranceType(meetingInformation.getMeetingOccuranceType());
+//       
 //		String meetingStartDate = new SimpleDateFormat("dd-MM-yyyy").format(meetingInformation.getMeetingStartDate());
 //		meetingCalenderDTO.setMeetingStartDate(meetingStartDate);
 //		String meetingEndDate = new SimpleDateFormat("dd-MM-yyyy").format(meetingInformation.getMeetingEndDate());
-//		meetingCalenderDTO.setMeetingEndDate(meetingEndDate);
-//		
-//		meetingCalenderDTO.setMeetingStartTime(meetingInformation.getMeetingStartTime()); 
-//		meetingCalenderDTO.setMeetingStartMeridiem(meetingInformation.getMeetingStartMeridiem());
+//		meetingCalenderDTO.setMeetingEndDate(meetingEndDate);		
+//		meetingCalenderDTO.setMeetingStartTime(meetingInformation.getMeetingStartTime());
 //		meetingCalenderDTO.setMeetingEndTime(meetingInformation.getMeetingEndTime());
+//		
+//		meetingCalenderDTO.setMeetingStartMeridiem(meetingInformation.getMeetingStartMeridiem());
 //		meetingCalenderDTO.setMeetingEndMeridiem(meetingInformation.getMeetingEndMeridiem());
-//		
-//		meetingCalenderDTO.setMeetingTitle(meetingInformation.getMeetingTitle());
-//		meetingCalenderDTO.setMeetingShortDesc(meetingInformation.getMeetingShortDesc());
-//		meetingCalenderDTO.setZoomUrl(meetingInformation.getZoomUrl());
-//		meetingCalenderDTO.setMeetingPasscode(meetingInformation.getMeetingPasscode());
-//		meetingCalenderDTO.setMeetingId(meetingInformation.getMeetingId());
-//		meetingCalenderDTO.setMeetingBranch(meetingInformation.getMeetingBranch());
-//
-//		MeetingCalenderDTO meetingCalenderDTO2 = repository.save(meetingCalenderDTO);
-//		
-//		return meetingCalenderDTO2;
-	
-		MeetingCalenderEntity mEETINGCalenderEntity = meetingCalenderrepository.save(meetingCalenderEntity);
-		return mEETINGCalenderEntity;	
+		
+		meetingCalenderDTO.setMeetingCategory(meetingInformation.getMeetingCategory());
+		meetingCalenderDTO.setMeetingTitle(meetingInformation.getMeetingTitle());
+		meetingCalenderDTO.setMeetingShortDesc(meetingInformation.getMeetingShortDesc());
+		
+		MeetingCalenderEntity updatedMeetingCalenderEntity = meetingCalenderrepository.save(meetingInformation);
+		
+		
+		meetingCalenderDTO.setMeetingCategory(updatedMeetingCalenderEntity.getMeetingCategory());
+		
+				
+		return meetingCalenderDTO;		
+		
 		
 	 }
+	
+	/*	********************* End Update Meeting Information ****************************  */	
+	
+	/* ************************  Start Get Office location ********************************* */
 	
 	public List<OfficeLocationsDTO> populateOfficeLocations(){
 		
@@ -189,5 +227,21 @@ public class MeetingCalenderService {
 		   return listOfLocations;
 		   
 	   }
+	
+	/* ********************    End Get office locations  **************************** */
+	
+	
+//	public MeetingCalenderEntity storeMeetingUpdateDeatils(MeetingCalenderEntity meetingCalenderEntity,String meetingId) throws Exception {
+//
+//		MeetingCalenderEntity meetingInformation2=meetingCalenderrepository.findByMeetingId(meetingId);
+//		
+//		meetingInformation2.setMeetingCategory(meetingCalenderEntity.getMeetingCategory());
+//		meetingInformation2.setMeetingShortDesc(meetingCalenderEntity.getMeetingShortDesc());
+//		
+//		MeetingCalenderEntity meetingCalenderEntity3 =meetingCalenderrepository.save(meetingInformation2);
+//		
+//		return meetingCalenderEntity3;
+//	}
+	
 
 }

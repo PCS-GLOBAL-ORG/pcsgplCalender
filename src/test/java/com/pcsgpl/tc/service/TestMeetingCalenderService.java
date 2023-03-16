@@ -28,6 +28,7 @@ import com.pcsgpl.tc.dto.OfficeLocationsDTO;
 import com.pcsgpl.tc.entity.OfficeLocationsEntity;
 
 @ExtendWith(MockitoExtension.class)
+@TestInstance(Lifecycle.PER_CLASS)
 public class TestMeetingCalenderService {
 
 	@InjectMocks
@@ -57,7 +58,7 @@ public class TestMeetingCalenderService {
 	    		  .branchName("Mahadevpura")
 	    		  .build();
 	      
-	      List<OfficeLocationsEntity> listOfOfficeLoc = new ArrayList<OfficeLocationsEntity>();
+	      listOfOfficeLoc = new ArrayList<OfficeLocationsEntity>();
 	      listOfOfficeLoc.add(entity1);
 	      listOfOfficeLoc.add(entity2);
 	}

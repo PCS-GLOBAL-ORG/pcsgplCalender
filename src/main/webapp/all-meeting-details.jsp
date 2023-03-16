@@ -1,13 +1,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!--  <body bgcolor="8adoff">  -->
- <body style="color: #fff;
+<body >
+<!--  <body style="color: #fff;
     background: -webkit-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -webkit-radial-gradient(farthest-corner at 0% 0%,#4884FA 70%, #2F6FED 70%);
     background: -o-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -o-radial-gradient(farthest-corner at 0% 0%, #4884FA 70%, #2F6FED 70%);
     background: -moz-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -moz-radial-gradient(farthest-corner at 0% 0%, #4884FA 70%, #2F6FED 70%);
     background: linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%,#4884FA 70%,#2F6FED  70%);"
-    > 
+    >  -->
 <div align="center">
     <h1>Meeting List</h1>   
     <br/><br/>
@@ -68,7 +68,7 @@
                 <td>${calender_info_details.meetingBranch}</td>                               
                 <td>
                     <a href="GetMeetingByMeetingId?meetingId=${calender_info_details.meetingId}" style="text-decoration:none" >View</a>               
-                    <a href="update-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Edit</a>
+                    <a href="edit-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Edit</a> 
                     <a href="delete-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Delete</a>                     
                 </td>
             </tr>

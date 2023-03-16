@@ -1,21 +1,19 @@
 
+<%@page import="com.pcsgpl.tc.service.MeetingCalenderService"%>
+<%@page import="com.pcsgpl.tc.dto.OfficeLocationsDTO"%>
 <%@page import="com.pcsgpl.tc.dto.MeetingCalenderDTO"%>
+<%@page import="com.pcsgpl.tc.util.MeetingCalenderUtil"%>
+<%@page import="java.util.List,java.util.ArrayList"%>
+<body >
 
-<!--  --><body bgcolor="#366FE1">
-<body style="color: #fff;
-    background: -webkit-linear-gradient(110deg, #3366ff 29%, rgba(0, 0, 0, 0) 29%), -webkit-linear-gradient(110deg,#4884FA 66%, #86AAF2 66%);
-    background: -o-linear-gradient(110deg, #3366ff 29%, rgba(0, 0, 0, 0) 29%), -o-linear-gradient(110deg,#4884FA 66%, #86AAF2 66%);
-    background: -moz-linear-gradient(110deg, #3366ff 29%, rgba(0, 0, 0, 0) 29%), -moz-linear-gradient(110deg,#4884FA 66%, #86AAF2 66%);
-    background: linear-gradient(110deg, #3366ff 29%, rgba(0, 0, 0, 0) 29%), linear-gradient(110deg, #4884FA 66% ,#86AAF2 66%);
-">
 	<%@include file="header.jsp"%>
 	<%@include file="navbar.jsp"%>
 	<div align="center">
-		<form action="/meeting-registration" method="post">
+		<form action="/update-meeting" method="post">
 			<fieldset style="width: 600px; align: center">
-				<legend> Meeting Registration Window</legend>				
+				<legend> Meeting Update Information Window</legend>				
 				     <%	
-				     OfficeLocationsEntity officeLocationsEntity =
+				    
 				         if(request.getAttribute("calender_info_by_meeting_id")!=null){				        	 
 				        	 MeetingCalenderDTO  meetingCalenderDTO  =(MeetingCalenderDTO) request.getAttribute("calender_info_by_meeting_id");				        	 				        	 
 				      %>
@@ -25,14 +23,17 @@
 					        <tr>
 					             <td><label for="meetingCategory">Category </label><font style="color: red">*</font></td>
 						         <td>
-						             
-						             <select name="meetingCategory" required="required">
-						                    <option value=""><%=meetingCalenderDTO.getMeetingCategory()%></option>
-											<option value="Global">Global</option>
-											<option value="Kolkata">Kolkata</option>
-											<option value="BTM">BTM Layout</option>
-											<option value="Mahadevpura">Mahadevpura</option>
-											<option value="BBS">Bhubaneswar</option>
+						             <%
+						         
+						            List<OfficeLocationsDTO> officeLocDtos = (List<OfficeLocationsDTO>) request.getAttribute("officeLocDtos");
+						             %>
+						             <select name="meetingCategory" >
+						                     <% for(OfficeLocationsDTO officeLocationsDTO:officeLocDtos){ 
+							                     if((officeLocationsDTO.getBranchName()).equals(meetingCalenderDTO.getMeetingCategory())){  %>
+							                       <option value="<%=officeLocationsDTO.getBranchName()%>" selected="selected"><%=officeLocationsDTO.getBranchName()%></option>
+												  <%} %>
+												   <option value="<%=officeLocationsDTO.getBranchName()%>"><%=officeLocationsDTO.getBranchName()%></option>
+											<%} %>
 						             </select>     
 						         </td>  						          						        						        							        								    							     
 					        </tr>
@@ -44,11 +45,11 @@
 						         </td>	
 						         <td>
 								      <% if(meetingCalenderDTO.getMeetingOccuranceType().equals("Multiple")){ %>					            						            						         
-								        <input type="radio" name="meetingOccuranceType" checked="checked"/> Multiple
-								        <input type="radio" name="meetingOccuranceType" /> Single
+								        <input type="radio" name="meetingOccuranceType" value="M" checked="checked"/> Multiple
+								        <input type="radio" name="meetingOccuranceType" value="S"/> Single
 								      <%}else if(meetingCalenderDTO.getMeetingOccuranceType().equals("Single")){ %>	
-								        <input type="radio" name="meetingOccuranceType" /> Multiple		
-								        <input type="radio" name="meetingOccuranceType" checked="checked"/> Single 
+								        <input type="radio" name="meetingOccuranceType" value="M"/> Multiple		
+								        <input type="radio" name="meetingOccuranceType" value="S" checked="checked"/> Single 
 								       <%} %>	
 						         </td>	           							     
 					        </tr>
@@ -76,7 +77,7 @@
 								 <td><label for="meetingStartTime">Start Time</label><font style="color: red">*</font></td>
 								 <td>
 								    
-								    <select name="meetingStartTime" required="required">
+								    <select name="meetingStartTime" >
 											<option value=""><%=meetingCalenderDTO.getMeetingStartTime()%></option>
 											<option value="12:00">12:00</option>
 											<option value="12:30">12:30</option>
@@ -103,7 +104,7 @@
 											<option value="11:00">11:00</option>
 											<option value="11:30">11:30</option>
 									   </select> 
-									   <select name="meetingStartMeridiem" required="required" >
+									   <select name="meetingStartMeridiem"  >
 											<option value=""><%=meetingCalenderDTO.getMeetingStartMeridiem()%></option>
 											<option value="AM">AM</option>
 											<option value="PM">PM</option>
@@ -114,7 +115,7 @@
 							<tr>
 								 <td><label for="meetingEndTime">End Time</label><font style="color: red">*</font></td>
 								 <td>
-									 <select name="meetingEndTime" required="required">
+									 <select name="meetingEndTime">
 													<option value=""><%=meetingCalenderDTO.getMeetingEndTime()%></option>
 													<option value="12:00">12:00</option>
 													<option value="12:30">12:30</option>
@@ -141,7 +142,7 @@
 													<option value="11:00">11:00</option>
 													<option value="11:30">11:30</option>												
 											</select> 
-											<select name="meetingEndMeridiem" required="required">
+											<select name="meetingEndMeridiem">
 													<option value=""><%=meetingCalenderDTO.getMeetingEndMeridiem()%></option>
 													<option value="AM">AM</option>
 													<option value="PM">PM</option>
@@ -151,8 +152,8 @@
 
 							<tr>
 								 <td><label for="meetingTitle">Title</label><font style="color: red">*</font></td>
-								 <td><textarea name="meetingTitle" rows="2" cols="50" required="required"><%=meetingCalenderDTO.getMeetingTitle()%></textarea></td>	    
-							</tr>		  
+								 <td><textarea name="meetingTitle" rows="2" cols="50"><%=meetingCalenderDTO.getMeetingTitle()%></textarea></td>	    
+							</tr>	 	  
 
 							<tr>
 								<td><label for="meetingShortDesc">Description</label></td>
@@ -163,7 +164,7 @@
 								 <td><label for="meetingBranch">Branch</label><font style="color: red">*</font></td>
 								 <td>
 								 
-								         <select name="meetingBranch" required="required">
+								         <select name="meetingBranch" >
 												<option value=""><%=meetingCalenderDTO.getMeetingBranch()%></option>
 												<option value="Global">Global</option>
 												<option value="Kolkata">Kolkata</option>
@@ -176,19 +177,24 @@
 								
 							<tr>
 								 <td><label for="meetingId">Zoom Meeting Id</label><font style="color: red">*</font></td>
-								 <td><input type="text" name="meetingId" required="required" value="<%=meetingCalenderDTO.getMeetingId()%>"></td>			
+								 <td><input type="text" name="meetingId" disabled  value="<%=meetingCalenderDTO.getMeetingId()%>"></td>			
 							</tr>
 								
 							<tr>
 								<td><label for="meetingPasscode">Zoom Meeting Passcode</label><font style="color: red">*</font></td>
-								<td><input type="text" name="meetingPasscode" required="required" value="<%=meetingCalenderDTO.getMeetingPasscode()%>"></td>
+								<td><input type="text" name="meetingPasscode" disabled  value="<%=meetingCalenderDTO.getMeetingPasscode()%>"></td>
 							</tr>
 								
 							<tr>
 								 <td><label for="zoomUrl">Zoom Meeting URL</label><font style="color: red">*</font></td>
-                                 <td><input type="text" name="zoomUrl" required="required" value="<%=meetingCalenderDTO.getZoomUrl()%>"></td>
+                                 <td><input type="text" name="zoomUrl" disabled  value="<%=meetingCalenderDTO.getZoomUrl()%>"></td>
 						    </tr>
-								
+						    
+								<tr>
+									<td>&nbsp;</td>
+									<td><input type="submit" name="submit" value="Update" />
+									</td>
+								</tr>								
 							
 							<%
 				         }				     				     				     

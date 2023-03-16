@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>PCS Global Meeting Calendar</title>
 </head>
-<body bgcolor="8adoff"> 
+<body > 
 <!-- <body style="
     color: #fff;
     background: -webkit-linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('https://www.nasa.gov/sites/default/files/thumbnails/image/pia21421-cr.jpg');
