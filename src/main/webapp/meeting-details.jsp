@@ -1,12 +1,7 @@
 
 <%@page import="com.pcsgpl.tc.dto.MeetingCalenderDTO"%>
 <body>
-<!--   <body style="color: #fff;
-    background: -webkit-linear-gradient(110deg, #4884FA 29%, rgba(0, 0, 0, 0) 29%), -webkit-linear-gradient(110deg, #dd0000 66%, #ffc608 66%);
-    background: -o-linear-gradient(110deg, #4884FA 29%, rgba(0, 0, 0, 0) 29%), -o-linear-gradient(110deg, #dd0000 66%, #ffc608 66%);
-    background: -moz-linear-gradient(110deg, #4884FA 29%, rgba(0, 0, 0, 0) 29%), -moz-linear-gradient(110deg, #dd0000 66%, #ffc608 66%);
-    background: linear-gradient(110deg, #4884FA 29%, rgba(0, 0, 0, 0) 29%), linear-gradient(110deg, #dd0000 66%, #ffc608 66%);
-">  --> 
+
 	<%@include file="header.jsp"%>
 	<%@include file="navbar.jsp"%>
 	<div align="center">

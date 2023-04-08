@@ -164,30 +164,35 @@
 								 <td><label for="meetingBranch">Branch</label><font style="color: red">*</font></td>
 								 <td>
 								 
-								         <select name="meetingBranch" >
-												<option value=""><%=meetingCalenderDTO.getMeetingBranch()%></option>
-												<option value="Global">Global</option>
-												<option value="Kolkata">Kolkata</option>
-												<option value="BTM">BTM Layout</option>
-												<option value="Mahadevpura">Mahadevpura</option>
-												<option value="BBS">Bhubaneswar</option>
-									     </select>
+			
+												<%
+						         
+						            List<OfficeLocationsDTO> officeLocDtos1 = (List<OfficeLocationsDTO>) request.getAttribute("officeLocDtos");
+						             %>
+						             <select name="meetingBranch" >
+						                     <% for(OfficeLocationsDTO officeLocationsDTO:officeLocDtos1){ 
+							                     if((officeLocationsDTO.getBranchName()).equals(meetingCalenderDTO.getMeetingCategory())){  %>
+							                       <option value="<%=officeLocationsDTO.getBranchCode()%>" selected="selected"><%=officeLocationsDTO.getBranchName()%></option>
+												  <%} %>
+												   <option value="<%=officeLocationsDTO.getBranchCode()%>"><%=officeLocationsDTO.getBranchName()%></option>
+											<%} %>
+						             </select>     
 								 </td>
 							</tr>
 								
 							<tr>
 								 <td><label for="meetingId">Zoom Meeting Id</label><font style="color: red">*</font></td>
-								 <td><input type="text" name="meetingId" disabled  value="<%=meetingCalenderDTO.getMeetingId()%>"></td>			
+								 <td><input type="text" name="meetingId" readonly  value="<%=meetingCalenderDTO.getMeetingId()%>"></td>			
 							</tr>
 								
 							<tr>
 								<td><label for="meetingPasscode">Zoom Meeting Passcode</label><font style="color: red">*</font></td>
-								<td><input type="text" name="meetingPasscode" disabled  value="<%=meetingCalenderDTO.getMeetingPasscode()%>"></td>
+								<td><input type="text" name="meetingPasscode" readonly  value="<%=meetingCalenderDTO.getMeetingPasscode()%>"></td>
 							</tr>
 								
 							<tr>
 								 <td><label for="zoomUrl">Zoom Meeting URL</label><font style="color: red">*</font></td>
-                                 <td><input type="text" name="zoomUrl" disabled  value="<%=meetingCalenderDTO.getZoomUrl()%>"></td>
+                                 <td><input type="text" name="zoomUrl" readonly  value="<%=meetingCalenderDTO.getZoomUrl()%>"></td>
 						    </tr>
 						    
 								<tr>

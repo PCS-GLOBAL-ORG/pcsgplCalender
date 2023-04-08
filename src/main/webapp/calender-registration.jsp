@@ -1,11 +1,9 @@
 
+<%@page import="com.pcsgpl.tc.dto.OfficeLocationsDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.pcsgpl.tc.dto.MeetingCalenderDTO"%>
 <body>
-<!-- <body style=
-   "background: -webkit-linear-gradient(70deg, #fff810  30%, rgba(0,0,0,0) 30%), -webkit-linear-gradient(30deg, #63e89e 60%, #ff7ee3 60%);
-    background: -o-linear-gradient(70deg, #fff810  30%, rgba(0,0,0,0) 30%), -o-linear-gradient(30deg, #63e89e 60%, #ff7ee3 60%);
-    background: -moz-linear-gradient(70deg, #fff810  30%, rgba(0,0,0,0) 30%), -moz-linear-gradient(30deg, #63e89e 60%, #ff7ee3 60%);
-    background: linear-gradient(70deg, #fff810  30%, rgba(0,0,0,0) 30%), linear-gradient(30deg, #63e89e 60%, #ff7ee3 60%);"
-  > -->
+
 	<%@include file="header.jsp"%>
 	<%@include file="navbar.jsp"%>
 	<div align="center">
@@ -30,14 +28,17 @@
 						           <font style="color: red">*</font>
 						        </td>
 						        <td>
-							        <select name="meetingCategory" required="required">
-											<option value="">Select</option>
-											<option value="Global">Global</option>
-											<option value="Kolkata">Kolkata</option>
-											<option value="BTM Layout">BTM Layout</option>
-											<option value="Mahadevpura">Mahadevpura</option>
-											<option value="Bhubaneswar">Bhubaneswar</option>
-							        </select>
+							       <%
+						         
+						            List<OfficeLocationsDTO> officeLocDtos = (List<OfficeLocationsDTO>) request.getAttribute("officeLocDtos");
+						             %>
+						                <select name="meetingCategory" required="required" >
+						                       	<option value="">Select</option>
+						                     <% for(OfficeLocationsDTO officeLocationsDTO:officeLocDtos){ 
+							                   %> 							                    	
+												   <option value="<%=officeLocationsDTO.getBranchCode()%>"><%=officeLocationsDTO.getBranchName()%></option>
+											<%} %>
+						             </select>     
 							     </td>
 					         </tr>
 					         
@@ -177,14 +178,18 @@
 									    <font style="color: red">*</font>
 									</td>
 									<td>
-									    <select name="meetingBranch" required="required">
-												<option value="">Select</option>
-												<option value="Global">Global</option>
-												<option value="Kolkata">Kolkata</option>
-												<option value="BTM Layout">BTM Layout</option>
-												<option value="Mahadevpura">Mahadevpura</option>
-												<option value="Bhubaneswar">Bhubaneswar</option>
-									     </select>
+									 
+                                <%
+						         
+						            List<OfficeLocationsDTO> officeLocDtos1 = (List<OfficeLocationsDTO>) request.getAttribute("officeLocDtos");
+						             %>
+						             <select name="meetingBranch" >
+						                    <option value="">- : Select Branch :-</option>
+						                     <% for(OfficeLocationsDTO officeLocationsDTO:officeLocDtos1){ 
+							                    %> 
+							                   <option value="<%=officeLocationsDTO.getBranchCode()%>" ><%=officeLocationsDTO.getBranchName()%></option>
+						                  <%}%>
+						             </select>     
 									 </td>
 								</tr>
 								

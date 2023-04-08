@@ -1,34 +1,87 @@
+<%@page import="com.pcsgpl.tc.dto.OfficeLocationsDTO"%>
+<%@page import="com.pcsgpl.tc.entity.MeetingCalenderEntity"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <body >
-<!--  <body style="color: #fff;
-    background: -webkit-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -webkit-radial-gradient(farthest-corner at 0% 0%,#4884FA 70%, #2F6FED 70%);
-    background: -o-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -o-radial-gradient(farthest-corner at 0% 0%, #4884FA 70%, #2F6FED 70%);
-    background: -moz-linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), -moz-radial-gradient(farthest-corner at 0% 0%, #4884FA 70%, #2F6FED 70%);
-    background: linear-gradient(110deg, #86AAF2 40%, rgba(0, 0, 0, 0) 30%), radial-gradient(farthest-corner at 0% 0%,#4884FA 70%,#2F6FED  70%);"
-    >  -->
+
 <div align="center">
     <h1>Meeting List</h1>   
-    <br/><br/>
+    <br/>
 	<%@include file="navbar.jsp"%>
 	 
-	<form th:action="@{/}">
+	<form action="/search-meeting-by-branch-location" method="post" >
 	        <table style="align:center">
 	            <tr>
 	            <td>
-	        Filter: <input type="text" name="keyword" id="keyword" size="50"  required />
+	                <%				         
+					   List<OfficeLocationsDTO> officeLocDtos = (List<OfficeLocationsDTO>) request.getAttribute("officeLocDtos");
+					%>
+					   Search By Branch :      <select name="officelocation" >
+						     <% for(OfficeLocationsDTO officeLocationsDTO:officeLocDtos){ 
+							  %> 							                    	
+								<option value="<%=officeLocationsDTO.getBranchCode()%>"><%=officeLocationsDTO.getBranchName()%></option>
+									<%} %>
+						        </select>     
 	           </td>
 	           <td>
 	                   <input type="submit" value="Search" />
 	          </td>
-	          <td>         
-	           
-	                   <input type="reset" name="Reset" value="Clear" />
-	           </td>
+	        
 	           </tr>        
 	         </table>
 	    </form>
+	  
+	    <form action="/search-meeting-by-form-date-to-date" method="post">
+	        <table style="align:center">
+	            <tr>
+	            <td>
+	                   From Date <input type="date" name="meetingStartDate" required="required"/>
+	                    <span> &nbsp;</span>
+	                   To Date <input type="date" name="meetingEndDate" required="required"/> 
+	           </td>
+	           <td>
+	                   <input type="submit" value="SearchByDate" />
+	          </td>
+	        
+	           </tr>        
+	         </table>
+	    </form>
+	    
+	    <form action="/sort-by-location" method="post">
+	          <table>
+	                <tr>
+	                    <td>Sort By:	                        
+	                               <select>	                               
+	                                      <option>Select</option>
+	                                      <option value="meetingBranch">Branch</option>
+	                                      <option value="meetingStartDate">StartDate</option>
+	                               </select>	                                       	                               	                               	                               
+	                    </td>
+	                    <td><input type="submit" value="Sort" /></td>	                    
+	                </tr>
+	          </table>
+	    </form>
+	    
+	    <form action="/sort-by-date" method="post">
+	          <table>
+	                <tr>
+	                   <td>Sort By Start Date</td>
+                       <td><input type="submit" value="Sort" /></td>
+	                </tr>
+	          </table>
+	    </form>
+	    <form action="/sort-by-location" method="post">
+	          <table>
+	                <tr>
+	                    <td>Sort By Branch</td>	                        
+	                    <td><input type="submit" value="Sort" /></td>        	                                       	                               	                               	                                                   
+	                </tr>
+	          </table>
+	    </form>
+	    
+	    
 	    <% if(request.getAttribute("delete-message") != null){ %>
 	               <%=request.getAttribute("delete-message")%>
 	    <%}%>
@@ -42,11 +95,11 @@
                 <th>Meeting Id</th>
                 <th>Zoom Url</th>
                 <th>Passcode</th>              
-                <th>Start Date</th>
-                <th>End Date</th>
+                <th>Start Date &udarr;</th>
+                <th>End Date &udarr;</th>
                 <th>Start Time</th>            
                 <th>End Time</th>                           
-                <th>Branch</th>
+                <th>Branch &udarr;</th>
                 <th>Actions</th>  
             </tr>
         </thead>
@@ -58,7 +111,8 @@
                 <td>${calender_info_details.meetingCategory}</td>
                 <td>${calender_info_details.meetingOccuranceType}</td>
                 <td>${calender_info_details.meetingId}</td>
-                <td>${calender_info_details.zoomUrl}</td>
+                <td style="display: block;width: 70px;overflow: hidden;text-overflow: ellipsis;">       
+                    ${calender_info_details.zoomUrl}</td>
                 <td>${calender_info_details.meetingPasscode}</td>                 
                 <td>${calender_info_details.meetingStartDate}</td>
                 <td>${calender_info_details.meetingEndDate}</td>
@@ -71,10 +125,17 @@
                     <a href="edit-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Edit</a> 
                     <a href="delete-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Delete</a>                     
                 </td>
-            </tr>
+            </tr>          
             </c:forEach>  
         </tbody>   
     </table>
+    
+                                <tr>
+									<td>&nbsp;</td>
+									<td><input type="submit" name="submit" value="Previous" />
+										&nbsp; <input type="reset" name="Reset" value="Next" />
+									</td>
+								</tr>
 </div> 
 <%@include file="footer.jsp"%>  
 </body>
