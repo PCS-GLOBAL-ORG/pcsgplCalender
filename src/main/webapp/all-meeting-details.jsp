@@ -11,7 +11,9 @@
     <br/>
 	<%@include file="navbar.jsp"%>
 	 
-	<form action="/search-meeting-by-branch-location" method="post" >
+	<form action="/search-meeting-by-branch-location?page=0&size=5" method="GET" >
+	        <input type="hidden" name="page" value=0 />
+            <input type="hidden" name="size" value=5 />
 	        <table style="align:center">
 	            <tr>
 	            <td>
@@ -33,7 +35,9 @@
 	         </table>
 	    </form>
 	  
-	    <form action="/search-meeting-by-form-date-to-date" method="post">
+	    <form action="/search-meeting-by-form-date-to-date?page=0&size=5" method="GET">
+	        <input type="hidden" name="page" value=0 />
+            <input type="hidden" name="size" value=5 />
 	        <table style="align:center">
 	            <tr>
 	            <td>
@@ -49,7 +53,7 @@
 	         </table>
 	    </form>
 	    
-	    <form action="/sort-by-location" method="post">
+	   <!-- <form action="/sort-by-location" >
 	          <table>
 	                <tr>
 	                    <td>Sort By:	                        
@@ -62,9 +66,11 @@
 	                    <td><input type="submit" value="Sort" /></td>	                    
 	                </tr>
 	          </table>
-	    </form>
+	    </form> -->
 	    
-	    <form action="/sort-by-date" method="post">
+	    <form action="/sort-by-date?page=0&size=5" method="GET">
+	          <input type="hidden" name="page" value=0 />
+	          <input type="hidden" name="size" value=5 />
 	          <table>
 	                <tr>
 	                   <td>Sort By Start Date</td>
@@ -72,7 +78,9 @@
 	                </tr>
 	          </table>
 	    </form>
-	    <form action="/sort-by-location" method="post">
+	    <form action="/sort-by-location?page=0&size=5" method="GET">
+	          <input type="hidden" name="page" value=0 />
+              <input type="hidden" name="size" value=5 />
 	          <table>
 	                <tr>
 	                    <td>Sort By Branch</td>	                        
@@ -104,7 +112,7 @@
             </tr>
         </thead>
         <tbody>
-        <c:forEach var="calender_info_details" items="${calender_info_detailss}">
+        <c:forEach var="calender_info_details" items="${calender_info_details}">
             <tr >
                 <td><a href="GetMeetingByMeetingId?meetingId=${calender_info_details.meetingId}" style="text-decoration:none" >${calender_info_details.meetingTitle} </a></td>
                 <td>${calender_info_details.meetingShortDesc}</td>            
@@ -129,41 +137,47 @@
             </c:forEach>  
         </tbody>   
     </table>
-    
-                               <!--  <tr>
-									<td>&nbsp;</td>
-									<td><input type="submit" name="submit" value="Previous" />
-										&nbsp; <input type="reset" name="Reset" value="Next" />
-									</td>
-								</tr> -->
-</div> 
 
-			<%--For displaying Previous link except for the 1st page --%>
-<!--  			    <c:if test="${currentPage != 1}">
-			        <td><a href="calender_info_details.do?page=${currentPage - 1}">Previous</a></td>
-			    </c:if>
-			    -->
-			 
-			    <%--For displaying Page numbers. 
-			    The when condition does not display a link for the current page--%>
-	<!-- 	    <table border="1" cellpadding="5" cellspacing="5">
-			        <tr>
-			            <c:forEach begin="1" end="${noOfPages}" var="i">
-			                <c:choose>
-			                    <c:when test="${currentPage eq i}">
-			                        <td>${i}</td>
-			                    </c:when>
-			                    <c:otherwise>
-			                        <td><a href="calender_info_details.do?page=${i}">${i}</a></td>
-			                    </c:otherwise>
-			                </c:choose>
-			            </c:forEach>
-			        </tr>
-			    </table>
-			    <%--For displaying Next link --%>
-			    <c:if test="${currentPage lt noOfPages}">
-			        <td><a href="calender_info_details.do?page=${currentPage + 1}">Next</a></td>
-			    </c:if>
-			    -->
+
+    <c:if test="${calender_info_details.size() > 0}">
+		<div align="left">
+		    <c:choose>
+                <c:when test="${totalElements lt number*pageSize+1+pageSize}">
+                Showing ${number*pageSize+1} to ${totalElements} of ${totalElements}
+                </c:when>
+                <c:otherwise>
+                Showing ${number*pageSize+1} to ${number*pageSize+pageSize} of ${totalElements}
+                </c:otherwise>
+            </c:choose>
+			<ul style="margin:5px;">
+				<c:forEach begin="0" end="${totalPages-1}" var="pagoda">
+					<li>
+					    <c:choose>
+					        <c:when test="${API eq 'sort-by-date'}">
+                              <a href="sort-by-date?page=${pagoda}&size=${pageSize}">${pagoda+1}</a>
+                            </c:when>
+                            <c:when test="${API eq 'sort-by-location'}">
+                              <a href="sort-by-location?page=${pagoda}&size=${pageSize}">${pagoda+1}</a>
+                            </c:when>
+                            <c:when test="${API eq 'search-meeting-by-branch-location'}">
+                              <a href="search-meeting-by-branch-location?page=${pagoda}&size=${pageSize}&branchName=${branchName}">${pagoda+1}</a>
+                            </c:when>
+                            <c:when test="${API eq 'search-meeting-by-form-date-to-date'}">
+                              <a href="search-meeting-by-form-date-to-date?page=${pagoda}&size=${pageSize}">${pagoda+1}</a>
+                            </c:when>
+                            <c:otherwise>
+                              <a href="GetAllMeetingDetails?page=${pagoda}&size=${pageSize}">${pagoda+1}</a>
+                            </c:otherwise>
+                        </c:choose>
+
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
+    </c:if>
+
+
+
+
 <%@include file="footer.jsp"%>  
 </body>
