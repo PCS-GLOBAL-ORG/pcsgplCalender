@@ -328,8 +328,25 @@ public class MeetingCalenderService {
 	
 	
 	//To be implemented
-	public Page<MeetingCalenderEntity> findPagedRecordByLocation(){
+	public Page<MeetingCalenderEntity> findPagedRecord(){
 		return meetingCalenderrepository.findAll(Pageable.ofSize(5));
+	}
+	Pageable next() {
+		return null;
+	}
+	Pageable previousOrFirst() {
+		return null;
+	}
+	Pageable first() {
+		return null;
+	}
+	Pageable withPage(int pageNumber) {
+		return null;
+	}
+
+	public int getNoOfRecords() {
+		// TODO Auto-generated method stub
+		return getNoOfRecords();
 	}
 	
 	
