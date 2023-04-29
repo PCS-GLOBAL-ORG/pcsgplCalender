@@ -1,13 +1,10 @@
 package com.pcsgpl.tc.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,25 +26,25 @@ public class MeetingCalenderController {
 
 	@Autowired
 	MeetingCalenderService meetingCalenderServices;
-	@Autowired
+	//@Autowired
 	//MeetingCalenderRepository repository;
 	
 	@GetMapping("/")
 	public String index() {
-		return "index.jsp";
+		return "index";
 	}
 	
 	@RequestMapping(value = "/login")
 	public String login() {
 		System.out.println( " Inside.. Controller ");
-		return "login.jsp";
+		return "login";
 	}
 	
 	@RequestMapping("/logout-success")
 	public String logout(){
-		System.out.println( " Inside Controller ");
+		System.out.println( " Inside.. Controller ");
 		
-		return "login.jsp";
+		return "login";
 	}
 	
 	@GetMapping("/Schedule-Meeting")
@@ -55,7 +52,7 @@ public class MeetingCalenderController {
 	List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();
 	         
 	     request.setAttribute("officeLocDtos",officeLocDtos);
-		return "calender-registration.jsp";
+		return "calender-registration";
 	}
 	
 	@RequestMapping(value = "/meeting-registration", method = RequestMethod.POST)
@@ -70,27 +67,48 @@ public class MeetingCalenderController {
 		}
 		List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();        
 	    request.setAttribute("officeLocDtos",officeLocDtos);
-		return "calender-registration.jsp";
+		return "calender-registration";
 		//return "meetingCalender";
 	}
-		
-	@RequestMapping("/GetAllMeetingDetails")
-    public String home(Model model,HttpServletRequest request) {
-       model.addAttribute("calender_info_detailss", meetingCalenderServices.getAllMeetingCalenderDetails()); 
 
-         List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();
-         
-         request.setAttribute("officeLocDtos",officeLocDtos);
-         
-         return "all-meeting-details.jsp";
+	@RequestMapping("/GetAllMeetingDetails")
+    public String home(Model model,HttpServletRequest request) {				
+       model.addAttribute("calender_info_detailss", meetingCalenderServices.getAllMeetingCalenderDetails()); 
+         List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();         
+         request.setAttribute("officeLocDtos",officeLocDtos);         
+         return "all-meeting-details";
     }
+	
+//	@RequestMapping("/GetAllMeetingDetails")
+//    public String home(Model model,HttpServletRequest request) {
+//        int page = 1;
+//        int recordsPerPage = 2;
+//        if(request.getParameter("page") != null)
+//            page = Integer.parseInt(request.getParameter("page"));
+//        MeetingCalenderEntity ent = new MeetingCalenderEntity();
+//        List<MeetingCalenderEntity> list = ent.getAllMeetingCalenderDetails((page-1)*recordsPerPage,recordsPerPage);
+//        int noOfRecords = ent.getNoOfRecords();
+//        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+//        request.setAttribute("employeeList", list);
+//        request.setAttribute("noOfPages", noOfPages);
+//        request.setAttribute("currentPage", page);
+//		
+//		
+//       model.addAttribute("calender_info_detailss",list); 
+//
+//         List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();
+//         
+//         request.setAttribute("officeLocDtos",officeLocDtos);
+//         
+//         return "all-meeting-details.jsp";
+//    }
 		
 	@RequestMapping(value="/GetMeetingByMeetingId" ,method = RequestMethod.GET, params= {"meetingId"})
     public String getMeetingByMeetingId(@RequestParam(value="meetingId", required = true) String meetingId, HttpServletRequest request) {
 		System.out.println(" Meeting Id : "+ meetingId);
 	    request.setAttribute("calender_info_by_meeting_id", meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId));	     
 	   //System.out.println(" Meeting Title  -->  "+ meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId).getMeetingTitle());     
-	    return "meeting-details.jsp";
+	    return "meeting-details";
     }
 	
 	
@@ -108,7 +126,7 @@ public class MeetingCalenderController {
 	      
 	  }
 	  
-      return "all-meeting-details.jsp";	
+      return "all-meeting-details";	
 	}
 	
 			
@@ -126,7 +144,7 @@ public class MeetingCalenderController {
         
         request.setAttribute("meetingId", meetingId);
         
-		return "edit-meeting-details.jsp";
+		return "edit-meeting-details";
 	}      
 
 	@RequestMapping(value="/update-meeting",method = RequestMethod.POST)
@@ -167,7 +185,7 @@ public class MeetingCalenderController {
          
         request.setAttribute("officeLocDtos",officeLocDtos);
          
-         return "all-meeting-details.jsp";
+         return "all-meeting-details";
     }
 	
 	@RequestMapping(value="/search-meeting-by-form-date-to-date",method = RequestMethod.POST)
@@ -182,7 +200,7 @@ public class MeetingCalenderController {
         List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();         
         request.setAttribute("officeLocDtos",officeLocDtos);
          
-        return "all-meeting-details.jsp";
+        return "all-meeting-details";
     }
 	
 	@RequestMapping(value="/sort-by-location",method = RequestMethod.POST)
@@ -199,7 +217,7 @@ public class MeetingCalenderController {
         List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();         
         request.setAttribute("officeLocDtos",officeLocDtos); 
         
-        return "all-meeting-details.jsp";
+        return "all-meeting-details";
 	
 	}
 	
@@ -215,7 +233,7 @@ public class MeetingCalenderController {
         List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();         
         request.setAttribute("officeLocDtos",officeLocDtos); 
         
-        return "all-meeting-details.jsp";
+        return "all-meeting-details";
 	
 	}
 	
