@@ -1,10 +1,13 @@
 package com.pcsgpl.tc.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import com.pcsgpl.tc.dto.OfficeLocationsDTO;
 import com.pcsgpl.tc.entity.MeetingCalenderEntity;
 //import com.pcsgpl.tc.repository.MeetingCalenderRepository;
 import com.pcsgpl.tc.service.MeetingCalenderService;
+import com.pcsgpl.tc.service.MyUserDetailsService;
 
 
 
@@ -26,23 +30,32 @@ public class MeetingCalenderController {
 
 	@Autowired
 	MeetingCalenderService meetingCalenderServices;
+	
+	@Autowired
+	MyUserDetailsService userService;
 	//@Autowired
 	//MeetingCalenderRepository repository;
 	
 	@GetMapping("/")
-	public String index() {
+	public String index(Principal principal,HttpSession session) {
+		
+		UserDetails userSession = userService.loadUserByUsername(principal.getName());
+		session.setAttribute("User_Session", userSession);
+		System.out.println("User Session:"+ userSession.getAuthorities());
+		
 		return "index";
 	}
 	
 	@RequestMapping(value = "/login")
 	public String login() {
-		System.out.println( " Inside.. Controller ");
+		System.out.println( " Inside.. Login Controller ");
+		
 		return "login";
 	}
 	
 	@RequestMapping("/logout-success")
 	public String logout(){
-		System.out.println( " Inside.. Controller ");
+		System.out.println( " Inside.. Logout Controller ");
 		
 		return "login";
 	}
@@ -171,7 +184,7 @@ public class MeetingCalenderController {
 	    System.out.println("update title"+updateMeetInfo.getMeetingTitle());
 	    request.setAttribute("calender_info_by_meeting_id",updateMeetInfo);	     
 	   //System.out.println(" Meeting Title  -->  "+ meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId).getMeetingTitle());     
-	    return "meeting-details.jsp";
+	    return "meeting-details";
 			
 	}
 	

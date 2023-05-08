@@ -63,12 +63,17 @@ public class MeetingCalenderService {
 			String meetingEndDate = new SimpleDateFormat("dd-MM-yyyy").format(calenderEntity.getMeetingEndDate());
 			meetingCalenderDTO.setMeetingEndDate(meetingEndDate);
            }  
-		         
+		    
+           if (calenderEntity.getMeetingOccuranceType().equals("M")) {
+   			meetingCalenderDTO.setMeetingOccuranceType("Multiple");
+   		} else if (calenderEntity.getMeetingOccuranceType().equals("S")) {
+   			meetingCalenderDTO.setMeetingOccuranceType("Single");
+   		}
 
 			meetingCalenderDTO.setMeetingCategory(calenderEntity.getMeetingCategory());
 		
 			
-			meetingCalenderDTO.setMeetingOccuranceType(calenderEntity.getMeetingOccuranceType());
+		//	meetingCalenderDTO.setMeetingOccuranceType(calenderEntity.getMeetingOccuranceType());
 
 			meetingCalenderDTO.setMeetingId(calenderEntity.getMeetingId());
 			meetingCalenderDTO.setZoomUrl(calenderEntity.getZoomUrl());
@@ -164,6 +169,9 @@ public class MeetingCalenderService {
 		meetingCalenderEntity.setMeetingShortDesc(meetingCalenderDTO.getMeetingShortDesc());
 		meetingCalenderEntity.setMeetingBranch(meetingCalenderDTO.getMeetingBranch());
 		meetingCalenderEntity.setMeetingCategory(meetingCalenderDTO.getMeetingCategory());
+		meetingCalenderEntity.setMeetingOccuranceType(meetingCalenderDTO.getMeetingOccuranceType());
+		
+
 
 //		String meetingStartDate = new SimpleDateFormat("dd-MM-yyyy").format(meetingCalenderEntity.setMeetingStartDate());
 //		meetingCalenderDTO.getMeetingStartDate(meetingStartDate);
@@ -172,7 +180,12 @@ public class MeetingCalenderService {
 		MeetingCalenderEntity updatedMeetingCalenderEntity = meetingCalenderrepository.save(meetingCalenderEntity);
 				
 		meetingCalenderDTO.setMeetingCategory(updatedMeetingCalenderEntity.getMeetingCategory());
-		meetingCalenderDTO.setMeetingOccuranceType(updatedMeetingCalenderEntity.getMeetingOccuranceType());
+		
+		if (meetingCalenderEntity.getMeetingOccuranceType().equals("M")) {
+			meetingCalenderDTO.setMeetingOccuranceType("Multiple");
+		} else if (meetingCalenderEntity.getMeetingOccuranceType().equals("S")) {
+			meetingCalenderDTO.setMeetingOccuranceType("Single");
+		}
 		String meetingStartDate1 = new SimpleDateFormat("dd-MM-yyyy").format(updatedMeetingCalenderEntity.getMeetingStartDate());
 		meetingCalenderDTO.setMeetingStartDate(meetingStartDate1);
 		String meetingEndDate = new SimpleDateFormat("dd-MM-yyyy").format(updatedMeetingCalenderEntity.getMeetingEndDate());
