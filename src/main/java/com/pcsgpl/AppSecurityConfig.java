@@ -29,8 +29,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 			provider.setUserDetailsService(myUserDetailsService);
 			//provider.setUserDetailsService(userDetailsService);
 		    provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());		
-			//provider.setPasswordEncoder(new BCryptPasswordEncoder());
-			
+			//provider.setPasswordEncoder(new BCryptPasswordEncoder());	
 			return provider;
 		}
 
