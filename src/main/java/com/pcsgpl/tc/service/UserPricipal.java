@@ -1,6 +1,8 @@
 package com.pcsgpl.tc.service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +24,17 @@ public class UserPricipal implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		GrantedAuthority auth = new GrantedAuthority() {
+
+			@Override
+			public String getAuthority() {
+				// TODO Auto-generated method stub
+				return userEntity.getUserRole();
+			}
+			
+		};
+		
+		return List.of(auth);
 	}
 
 	@Override

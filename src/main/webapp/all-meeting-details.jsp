@@ -3,7 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@page import = "org.springframework.security.core.userdetails.UserDetails"%>
 <body >
 
 <div align="center">
@@ -53,20 +53,7 @@
 	         </table>
 	    </form>
 	    
-	   <!-- <form action="/sort-by-location" >
-	          <table>
-	                <tr>
-	                    <td>Sort By:	                        
-	                               <select>	                               
-	                                      <option>Select</option>
-	                                      <option value="meetingBranch">Branch</option>
-	                                      <option value="meetingStartDate">StartDate</option>
-	                               </select>	                                       	                               	                               	                               
-	                    </td>
-	                    <td><input type="submit" value="Sort" /></td>	                    
-	                </tr>
-	          </table>
-	    </form> -->
+
 	    
 	    <form action="/sort-by-date?page=0&size=5" method="GET">
 	          <input type="hidden" name="page" value=0 />
@@ -101,8 +88,9 @@
                 <th>Category</th>
                 <th>Occurance Type</th>
                 <th>Meeting Id</th>
+                <th>Passcode</th>
                 <th>Zoom Url</th>
-                <th>Passcode</th>              
+                              
                 <th>Start Date &udarr;</th>
                 <th>End Date &udarr;</th>
                 <th>Start Time</th>            
@@ -119,9 +107,10 @@
                 <td>${calender_info_details.meetingCategory}</td>
                 <td>${calender_info_details.meetingOccuranceType}</td>
                 <td>${calender_info_details.meetingId}</td>
+                <td>${calender_info_details.meetingPasscode}</td> 
                 <td style="display: block;width: 70px;overflow: hidden;text-overflow: ellipsis;">       
                     ${calender_info_details.zoomUrl}</td>
-                <td>${calender_info_details.meetingPasscode}</td>                 
+                                
                 <td>${calender_info_details.meetingStartDate}</td>
                 <td>${calender_info_details.meetingEndDate}</td>
                 <td>${calender_info_details.meetingStartTime}&nbsp;${calender_info_details.meetingStartMeridiem}</td>               
@@ -129,9 +118,19 @@
 
                 <td>${calender_info_details.meetingBranch}</td>                               
                 <td>
-                    <a href="GetMeetingByMeetingId?meetingId=${calender_info_details.meetingId}" style="text-decoration:none" >View</a>               
+                    <a href="GetMeetingByMeetingId?meetingId=${calender_info_details.meetingId}" style="text-decoration:none" >View</a> 
+                    <% 
+                UserDetails userSession1 = (UserDetails) session.getAttribute("User_Session");
+                System.out.println("User Name in NavBar: "+ userSession.getUsername());
+                
+                if(userSession1.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("Admin"))){
+                
+              %>              
                     <a href="edit-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Edit</a> 
-                    <a href="delete-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Delete</a>                     
+                    <a href="delete-meeting?meetingId=${calender_info_details.meetingId}" style="text-decoration:none">Delete</a>  
+                     <%
+                }
+              %>                   
                 </td>
             </tr>          
             </c:forEach>  

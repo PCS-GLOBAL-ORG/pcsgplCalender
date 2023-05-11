@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "employee_user_profile")
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,19 @@ public class UserEntity {
 	
 	@Column(name = "user_password")
 	private String userPassword;
-
+	
+	@Column(name ="user_id")
+	private String userID;
+	
+	@Column(name ="user_call_name")
+	private String userCallName;
+	
+	@Column(name ="user_role_id")
+	private String userRoleID;
+	
+	@Column(name = "user_role")
+	private String userRole;
+	
 	public int getId() {
 		return id;
 	}
@@ -43,10 +55,45 @@ public class UserEntity {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
+	
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+	public String getUserCallName() {
+		return userCallName;
+	}
+
+	public void setUserCallName(String userCallName) {
+		this.userCallName = userCallName;
+	}
+
+	public String getUserRoleID() {
+		return userRoleID;
+	}
+
+	public void setUserRoleID(String userRoleID) {
+		this.userRoleID = userRoleID;
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
 
 	@Override
 	public String toString() {
-		return "UserEntity [id=" + id + ", userName=" + userName + ", userPassword=" + userPassword + "]";
+		return "UserEntity [id=" + id + ", userName=" + userName + ", userPassword=" + userPassword + ", userID="
+				+ userID + ", userCallName=" + userCallName + ", userRoleID=" + userRoleID + ", userRole=" + userRole
+				+ "]";
 	}
 	
 	

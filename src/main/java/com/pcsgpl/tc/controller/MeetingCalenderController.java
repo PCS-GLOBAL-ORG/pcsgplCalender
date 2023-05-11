@@ -1,14 +1,20 @@
 package com.pcsgpl.tc.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,61 +28,68 @@ import com.pcsgpl.tc.dto.OfficeLocationsDTO;
 import com.pcsgpl.tc.entity.MeetingCalenderEntity;
 // import com.pcsgpl.tc.repository.MeetingCalenderRepository;
 import com.pcsgpl.tc.service.MeetingCalenderService;
+import com.pcsgpl.tc.service.MyUserDetailsService;
 
 @Controller
 public class MeetingCalenderController {
 
-  @Autowired MeetingCalenderService meetingCalenderServices;
-  // @Autowired
-  // MeetingCalenderRepository repository;
+	@Autowired
+	MeetingCalenderService meetingCalenderServices;
+ 
+	@Autowired
+	MyUserDetailsService userService;
+	//@Autowired
+	//MeetingCalenderRepository repository;
+	
+	@GetMapping("/")
+	public String index(Principal principal,HttpSession session) {
+		
+		UserDetails userSession = userService.loadUserByUsername(principal.getName());
+		session.setAttribute("User_Session", userSession);
+		System.out.println("User Session:"+ userSession.getAuthorities());
+		
+		return "index";
+	}
+	
+	@RequestMapping(value = "/login")
+	public String login() {
+		System.out.println( " Inside.. Login Controller ");
+		
+		return "login";
+	}
+	
+	@RequestMapping("/logout-success")
+	public String logout(){
+		System.out.println( " Inside.. Logout Controller ");
+		
+		return "login";
+	}
+	
+	@GetMapping("/Schedule-Meeting")
+	public String scheduleMeeting(HttpServletRequest request) {
+	List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();
+	         
+	     request.setAttribute("officeLocDtos",officeLocDtos);
+		return "calender-registration";
+	}
+	
+	@RequestMapping(value = "/meeting-registration", method = RequestMethod.POST)
+	public String createCalenderInfoDetails(@ModelAttribute MeetingCalenderEntity meetingCalenderEntity,HttpServletRequest request) throws Exception {
+	
+		MeetingCalenderEntity meetingCalender=meetingCalenderServices.storeMeetingDeatils(meetingCalenderEntity);
+		
+		if(null != meetingCalender) {
+		request.setAttribute("message", " <font  style='color:green;font-weight:bold'> Meeting Record Create Successfully ! </font>");
+		}else {
+			request.setAttribute("message", "<font  style='color:green'> Meeting Record Creation failed ! </font>");	
+		}
+		List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();        
+	    request.setAttribute("officeLocDtos",officeLocDtos);
+		return "calender-registration";
+		//return "meetingCalender";
+	}
 
-  @GetMapping("/")
-  public String index() {
-    return "index";
-  }
 
-  @RequestMapping(value = "/login")
-  public String login() {
-    System.out.println(" Inside.. Controller Login");
-    return "login";
-  }
-
-  @RequestMapping("/logout-success")
-  public String logout() {
-    System.out.println(" Inside.. Controller Logout");
-
-    return "login";
-  }
-
-  @GetMapping("/Schedule-Meeting")
-  public String scheduleMeeting(HttpServletRequest request) {
-    List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();
-
-    request.setAttribute("officeLocDtos", officeLocDtos);
-    return "calender-registration";
-  }
-
-  @RequestMapping(value = "/meeting-registration", method = RequestMethod.POST)
-  public String createCalenderInfoDetails(
-      @ModelAttribute MeetingCalenderEntity meetingCalenderEntity, HttpServletRequest request)
-      throws Exception {
-
-    MeetingCalenderEntity meetingCalender =
-        meetingCalenderServices.storeMeetingDeatils(meetingCalenderEntity);
-
-    if (null != meetingCalender) {
-      request.setAttribute(
-          "message",
-          " <font  style='color:green;font-weight:bold'> Meeting Record Create Successfully ! </font>");
-    } else {
-      request.setAttribute(
-          "message", "<font  style='color:green'> Meeting Record Creation failed ! </font>");
-    }
-    List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();
-    request.setAttribute("officeLocDtos", officeLocDtos);
-    return "calender-registration";
-    // return "meetingCalender";
-  }
 
   @RequestMapping("/GetAllMeetingDetails")
   public String home(
@@ -146,15 +159,15 @@ public class MeetingCalenderController {
     return "all-meeting-details";
   }
 
+
   @RequestMapping(value = "/edit-meeting", method = RequestMethod.GET)
   public String editMeetingById(
       @RequestParam(value = "meetingId") String meetingId, Model model, HttpServletRequest request)
       throws Exception {
     MeetingCalenderDTO getmeet =
         meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId);
-    request.setAttribute(
-        "calender_info_by_meeting_id",
-        meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId));
+    request.setAttribute("calender_info_by_meeting_id",getmeet);
+
 
     System.out.println("EDIT CALENDAR INFO BY MEETING::" + getmeet.getMeetingCategory());
     System.out.println("meetingId in meeting edit" + meetingId);
