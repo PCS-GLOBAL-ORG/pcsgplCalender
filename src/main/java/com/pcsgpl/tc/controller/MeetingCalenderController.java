@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pcsgpl.tc.dto.MeetingCalenderDTO;
 import com.pcsgpl.tc.dto.OfficeLocationsDTO;
 import com.pcsgpl.tc.entity.MeetingCalenderEntity;
-// import com.pcsgpl.tc.repository.MeetingCalenderRepository;
 import com.pcsgpl.tc.service.MeetingCalenderService;
 import com.pcsgpl.tc.service.MyUserDetailsService;
 
@@ -38,8 +37,6 @@ public class MeetingCalenderController {
  
 	@Autowired
 	MyUserDetailsService userService;
-	//@Autowired
-	//MeetingCalenderRepository repository;
 	
 	@GetMapping("/")
 	public String index(Principal principal,HttpSession session) {
@@ -85,8 +82,7 @@ public class MeetingCalenderController {
 		}
 		List<OfficeLocationsDTO> officeLocDtos = meetingCalenderServices.populateOfficeLocations();        
 	    request.setAttribute("officeLocDtos",officeLocDtos);
-		return "calender-registration";
-		//return "meetingCalender";
+		return "calender-registration";		
 	}
 
 
@@ -123,17 +119,10 @@ public class MeetingCalenderController {
     return "all-meeting-details";
   }
 
-  @RequestMapping(
-      value = "/GetMeetingByMeetingId",
-      method = RequestMethod.GET,
-      params = {"meetingId"})
-  public String getMeetingByMeetingId(
-      @RequestParam(value = "meetingId", required = true) String meetingId,
-      HttpServletRequest request) {
+  @RequestMapping(value = "/GetMeetingByMeetingId", method = RequestMethod.GET,params = {"meetingId"})
+  public String getMeetingByMeetingId(@RequestParam(value = "meetingId", required = true) String meetingId,HttpServletRequest request) {
     System.out.println(" Meeting Id : " + meetingId);
-    request.setAttribute(
-        "calender_info_by_meeting_id",
-        meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId));
+    request.setAttribute("calender_info_by_meeting_id",meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId));
 
     return "meeting-details";
   }
@@ -209,7 +198,7 @@ public class MeetingCalenderController {
     request.setAttribute("calender_info_by_meeting_id", updateMeetInfo);
     // System.out.println(" Meeting Title  -->  "+
     // meetingCalenderServices.getMeetingCalenderDetailsByMeetingId(meetingId).getMeetingTitle());
-    return "meeting-details.jsp";
+    return "meeting-details";
   }
 
   @RequestMapping(value = "/search-meeting-by-branch-location", method = RequestMethod.GET)

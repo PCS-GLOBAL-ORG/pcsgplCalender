@@ -46,7 +46,7 @@ public class UserPricipal implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return userEntity.getUserName();
+		return userEntity.getUserID();
 	}
 
 	@Override

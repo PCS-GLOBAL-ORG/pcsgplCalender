@@ -60,15 +60,18 @@ public class MeetingCalenderService {
                 meetingCalenderDTO.setMeetingEndDate(meetingEndDate);
               }
               
-//              if (calenderEntity.getMeetingOccuranceType().equals("M")) {
-//         			meetingCalenderDTO.setMeetingOccuranceType("Multiple");
-//         		} else if (calenderEntity.getMeetingOccuranceType().equals("S")) {
-//         			meetingCalenderDTO.setMeetingOccuranceType("Single");
-//         		}
+              if(null != calenderEntity.getMeetingOccuranceType()) {
+        
+              if (calenderEntity.getMeetingOccuranceType().equals("M")) {
+         			meetingCalenderDTO.setMeetingOccuranceType("Multiple");
+         		} else if (calenderEntity.getMeetingOccuranceType().equals("S")) {
+         			meetingCalenderDTO.setMeetingOccuranceType("Single");
+         		}
+              }
 
               meetingCalenderDTO.setMeetingCategory(calenderEntity.getMeetingCategory());
 
-              meetingCalenderDTO.setMeetingOccuranceType(calenderEntity.getMeetingOccuranceType());
+             // meetingCalenderDTO.setMeetingOccuranceType(calenderEntity.getMeetingOccuranceType());
 
               meetingCalenderDTO.setMeetingId(calenderEntity.getMeetingId());
               meetingCalenderDTO.setZoomUrl(calenderEntity.getZoomUrl());
@@ -95,58 +98,96 @@ public class MeetingCalenderService {
 
   /* -------------------Start Get Meeting Information with MeetingId------------------- */
 
+//  public MeetingCalenderDTO getMeetingCalenderDetailsByMeetingId(String meetingId) {
+//   // MeetingCalenderEntity meetingInformation = meetingCalenderrepository.findByMeetingId(meetingId);
+//
+//
+//		MeetingCalenderEntity meetingCalenderEntity = meetingCalenderrepository.findByMeetingId(meetingId);
+//		MeetingCalenderDTO	meetingCalenderDTO = new MeetingCalenderDTO();				
+//		/*meetingCalenderDTO.setMeetingCategory(meetingInformation.getMeetingCategory());
+//		*/
+//		
+//		meetingCalenderEntity.setMeetingTitle(meetingCalenderDTO.getMeetingTitle());
+//		meetingCalenderEntity.setMeetingShortDesc(meetingCalenderDTO.getMeetingShortDesc());
+//		meetingCalenderEntity.setMeetingBranch(meetingCalenderDTO.getMeetingBranch());
+//		meetingCalenderEntity.setMeetingCategory(meetingCalenderDTO.getMeetingCategory());
+//		meetingCalenderEntity.setMeetingOccuranceType(meetingCalenderDTO.getMeetingOccuranceType());
+//		
+//
+//
+////		String meetingStartDate = new SimpleDateFormat("dd-MM-yyyy").format(meetingCalenderEntity.setMeetingStartDate());
+////		meetingCalenderDTO.getMeetingStartDate(meetingStartDate);
+//		
+//		
+//		MeetingCalenderEntity updatedMeetingCalenderEntity = meetingCalenderrepository.save(meetingCalenderEntity);
+//				
+//		meetingCalenderDTO.setMeetingCategory(updatedMeetingCalenderEntity.getMeetingCategory());
+//		
+////		if (meetingCalenderEntity.getMeetingOccuranceType().equals("M")) {
+////			meetingCalenderDTO.setMeetingOccuranceType("Multiple");
+////		} else if (meetingCalenderEntity.getMeetingOccuranceType().equals("S")) {
+////			meetingCalenderDTO.setMeetingOccuranceType("Single");
+////		}
+//		String meetingStartDate1 = new SimpleDateFormat("dd-MM-yyyy").format(updatedMeetingCalenderEntity.getMeetingStartDate());
+//		meetingCalenderDTO.setMeetingStartDate(meetingStartDate1);
+//		String meetingEndDate = new SimpleDateFormat("dd-MM-yyyy").format(updatedMeetingCalenderEntity.getMeetingEndDate());
+//		meetingCalenderDTO.setMeetingEndDate(meetingEndDate);
+//		meetingCalenderDTO.setMeetingStartTime(updatedMeetingCalenderEntity.getMeetingStartTime());
+//		meetingCalenderDTO.setMeetingEndTime(updatedMeetingCalenderEntity.getMeetingEndTime());		
+//		meetingCalenderDTO.setMeetingStartMeridiem(updatedMeetingCalenderEntity.getMeetingStartMeridiem());
+//		meetingCalenderDTO.setMeetingEndMeridiem(updatedMeetingCalenderEntity.getMeetingEndMeridiem());
+//		meetingCalenderDTO.setMeetingTitle(updatedMeetingCalenderEntity.getMeetingTitle());
+//		meetingCalenderDTO.setMeetingShortDesc(updatedMeetingCalenderEntity.getMeetingShortDesc());
+//		meetingCalenderDTO.setMeetingBranch(updatedMeetingCalenderEntity.getMeetingBranch());
+//		meetingCalenderDTO.setZoomUrl(updatedMeetingCalenderEntity.getZoomUrl());
+//		meetingCalenderDTO.setMeetingId(updatedMeetingCalenderEntity.getMeetingId());
+//		meetingCalenderDTO.setMeetingPasscode(updatedMeetingCalenderEntity.getMeetingPasscode());
+//		
+//				
+//		return meetingCalenderDTO;		
+//		
+//		
+//	 }
+  
   public MeetingCalenderDTO getMeetingCalenderDetailsByMeetingId(String meetingId) {
-   // MeetingCalenderEntity meetingInformation = meetingCalenderrepository.findByMeetingId(meetingId);
+	    MeetingCalenderEntity meetingInformation = meetingCalenderrepository.findByMeetingId(meetingId);
 
+	    System.out.println(meetingInformation.getMeetingTitle());
 
-		MeetingCalenderEntity meetingCalenderEntity = meetingCalenderrepository.findByMeetingId(meetingId);
-		MeetingCalenderDTO	meetingCalenderDTO = new MeetingCalenderDTO();				
-		/*meetingCalenderDTO.setMeetingCategory(meetingInformation.getMeetingCategory());
-		*/
-		
-		meetingCalenderEntity.setMeetingTitle(meetingCalenderDTO.getMeetingTitle());
-		meetingCalenderEntity.setMeetingShortDesc(meetingCalenderDTO.getMeetingShortDesc());
-		meetingCalenderEntity.setMeetingBranch(meetingCalenderDTO.getMeetingBranch());
-		meetingCalenderEntity.setMeetingCategory(meetingCalenderDTO.getMeetingCategory());
-		meetingCalenderEntity.setMeetingOccuranceType(meetingCalenderDTO.getMeetingOccuranceType());
-		
+	    MeetingCalenderDTO meetingCalenderDTO = new MeetingCalenderDTO();
 
+	    meetingCalenderDTO.setMeetingCategory(meetingInformation.getMeetingCategory());
 
-//		String meetingStartDate = new SimpleDateFormat("dd-MM-yyyy").format(meetingCalenderEntity.setMeetingStartDate());
-//		meetingCalenderDTO.getMeetingStartDate(meetingStartDate);
-		
-		
-		MeetingCalenderEntity updatedMeetingCalenderEntity = meetingCalenderrepository.save(meetingCalenderEntity);
-				
-		meetingCalenderDTO.setMeetingCategory(updatedMeetingCalenderEntity.getMeetingCategory());
-		
-//		if (meetingCalenderEntity.getMeetingOccuranceType().equals("M")) {
-//			meetingCalenderDTO.setMeetingOccuranceType("Multiple");
-//		} else if (meetingCalenderEntity.getMeetingOccuranceType().equals("S")) {
-//			meetingCalenderDTO.setMeetingOccuranceType("Single");
-//		}
-		String meetingStartDate1 = new SimpleDateFormat("dd-MM-yyyy").format(updatedMeetingCalenderEntity.getMeetingStartDate());
-		meetingCalenderDTO.setMeetingStartDate(meetingStartDate1);
-		String meetingEndDate = new SimpleDateFormat("dd-MM-yyyy").format(updatedMeetingCalenderEntity.getMeetingEndDate());
-		meetingCalenderDTO.setMeetingEndDate(meetingEndDate);
-		meetingCalenderDTO.setMeetingStartTime(updatedMeetingCalenderEntity.getMeetingStartTime());
-		meetingCalenderDTO.setMeetingEndTime(updatedMeetingCalenderEntity.getMeetingEndTime());		
-		meetingCalenderDTO.setMeetingStartMeridiem(updatedMeetingCalenderEntity.getMeetingStartMeridiem());
-		meetingCalenderDTO.setMeetingEndMeridiem(updatedMeetingCalenderEntity.getMeetingEndMeridiem());
-		meetingCalenderDTO.setMeetingTitle(updatedMeetingCalenderEntity.getMeetingTitle());
-		meetingCalenderDTO.setMeetingShortDesc(updatedMeetingCalenderEntity.getMeetingShortDesc());
-		meetingCalenderDTO.setMeetingBranch(updatedMeetingCalenderEntity.getMeetingBranch());
-		meetingCalenderDTO.setZoomUrl(updatedMeetingCalenderEntity.getZoomUrl());
-		meetingCalenderDTO.setMeetingId(updatedMeetingCalenderEntity.getMeetingId());
-		meetingCalenderDTO.setMeetingPasscode(updatedMeetingCalenderEntity.getMeetingPasscode());
-		
-				
-		return meetingCalenderDTO;		
-		
-		
-	 }
+	    if (meetingInformation.getMeetingOccuranceType().equals("M")) {
+	      meetingCalenderDTO.setMeetingOccuranceType("Multiple");
+	    } else if (meetingInformation.getMeetingOccuranceType().equals("S")) {
+	      meetingCalenderDTO.setMeetingOccuranceType("Single");
+	    }
+
+	    String meetingStartDate =
+	        new SimpleDateFormat("dd-MM-yyyy").format(meetingInformation.getMeetingStartDate());
+	    meetingCalenderDTO.setMeetingStartDate(meetingStartDate);
+	    String meetingEndDate =
+	        new SimpleDateFormat("dd-MM-yyyy").format(meetingInformation.getMeetingEndDate());
+	    meetingCalenderDTO.setMeetingEndDate(meetingEndDate);
+
+	    meetingCalenderDTO.setMeetingStartTime(meetingInformation.getMeetingStartTime());
+	    meetingCalenderDTO.setMeetingEndTime(meetingInformation.getMeetingEndTime());
+
+	    meetingCalenderDTO.setMeetingStartMeridiem(meetingInformation.getMeetingStartMeridiem());
+	    meetingCalenderDTO.setMeetingEndMeridiem(meetingInformation.getMeetingEndMeridiem());
+
+	    meetingCalenderDTO.setMeetingTitle(meetingInformation.getMeetingTitle());
+	    meetingCalenderDTO.setMeetingShortDesc(meetingInformation.getMeetingShortDesc());
+	    meetingCalenderDTO.setZoomUrl(meetingInformation.getZoomUrl());
+	    meetingCalenderDTO.setMeetingPasscode(meetingInformation.getMeetingPasscode());
+	    meetingCalenderDTO.setMeetingId(meetingInformation.getMeetingId());
+	    meetingCalenderDTO.setMeetingBranch(meetingInformation.getMeetingBranch());
+
+	    return meetingCalenderDTO;
+	  }
 	
-	/* ---------------------End Update Meeting Information------------------------ */	
+	/* ---------------------End Update Meeting information with meetingID------------------------ */	
 	
 	/* --------------------Start Get Office location---------------------------- */
 	
@@ -168,8 +209,9 @@ public class MeetingCalenderService {
 	    return listOfLocations;
 	  }
 
+	/* ------------------------------End Get Office location-------------------------------------------*/
   
-
+  /* -------------------Start Update Meeting Information---------------------- */
    
   public MeetingCalenderDTO updateMeetingDetailsByMeetingId(String meetingId, MeetingCalenderDTO meetingCalenderDTO) {
 
@@ -183,25 +225,45 @@ public class MeetingCalenderService {
 	    meetingCalenderEntity.setMeetingShortDesc(meetingCalenderDTO.getMeetingShortDesc());
 	    meetingCalenderEntity.setMeetingBranch(meetingCalenderDTO.getMeetingBranch());
 	    meetingCalenderEntity.setMeetingCategory(meetingCalenderDTO.getMeetingCategory());
+	    meetingCalenderEntity.setMeetingOccuranceType(meetingCalenderDTO.getMeetingOccuranceType());
+	    
+	    if (null != meetingCalenderEntity.getMeetingStartDate()) {
+	    String meetingStartDate = new SimpleDateFormat("dd-MM-yyyy").format(meetingCalenderEntity.getMeetingStartDate());
+            meetingCalenderDTO.setMeetingStartDate(meetingStartDate);
+	    }
+	    
 
-	    MeetingCalenderEntity updatedMeetingCalenderEntity =
-	        meetingCalenderrepository.save(meetingCalenderEntity);
+
+	    MeetingCalenderEntity updatedMeetingCalenderEntity = meetingCalenderrepository.save(meetingCalenderEntity);
 
 	    meetingCalenderDTO.setMeetingCategory(updatedMeetingCalenderEntity.getMeetingCategory());
-	    meetingCalenderDTO.setMeetingOccuranceType(
-	        updatedMeetingCalenderEntity.getMeetingOccuranceType());
+	    
+        if(null != updatedMeetingCalenderEntity.getMeetingOccuranceType()) {            
+        if (updatedMeetingCalenderEntity.getMeetingOccuranceType().equals("M")) {
+   			meetingCalenderDTO.setMeetingOccuranceType("Multiple");
+   		} else if (updatedMeetingCalenderEntity.getMeetingOccuranceType().equals("S")) {
+   			meetingCalenderDTO.setMeetingOccuranceType("Single");
+   		}
+        }
+	    
+        if (null != updatedMeetingCalenderEntity.getMeetingStartDate()) {
 	    String meetingStartDate1 =
 	        new SimpleDateFormat("dd-MM-yyyy")
 	            .format(updatedMeetingCalenderEntity.getMeetingStartDate());
 	    meetingCalenderDTO.setMeetingStartDate(meetingStartDate1);
+        }
+        
 	    String meetingEndDate =
 	        new SimpleDateFormat("dd-MM-yyyy").format(updatedMeetingCalenderEntity.getMeetingEndDate());
 	    meetingCalenderDTO.setMeetingEndDate(meetingEndDate);
+	    
 	    meetingCalenderDTO.setMeetingStartTime(updatedMeetingCalenderEntity.getMeetingStartTime());
 	    meetingCalenderDTO.setMeetingEndTime(updatedMeetingCalenderEntity.getMeetingEndTime());
 	    meetingCalenderDTO.setMeetingStartMeridiem(
 	        updatedMeetingCalenderEntity.getMeetingStartMeridiem());
 	    meetingCalenderDTO.setMeetingEndMeridiem(updatedMeetingCalenderEntity.getMeetingEndMeridiem());
+	    
+	    
 	    meetingCalenderDTO.setMeetingTitle(updatedMeetingCalenderEntity.getMeetingTitle());
 	    meetingCalenderDTO.setMeetingShortDesc(updatedMeetingCalenderEntity.getMeetingShortDesc());
 	    meetingCalenderDTO.setMeetingBranch(updatedMeetingCalenderEntity.getMeetingBranch());
@@ -290,6 +352,7 @@ public class MeetingCalenderService {
     return listOfModifiedMeetingInfo;
   }
 
+  /* ------------------ --------------------------*/
   public Page<MeetingCalenderDTO> findByMeetingFormDateToDate(
       String meetingStartDate, String meetingEndDate, Pageable pageable) {
     System.out.println(" Search Start Value  ---> " + meetingStartDate);
@@ -308,13 +371,13 @@ public class MeetingCalenderService {
 
               if (null != calenderEntity.getMeetingStartDate()) {
                 String meetingStartDate1 =
-                    new SimpleDateFormat("dd-MM-yyyy").format(calenderEntity.getMeetingStartDate());
+                    new SimpleDateFormat("yyyy-MM-dd").format(calenderEntity.getMeetingStartDate());
                 meetingCalenderDTO.setMeetingStartDate(meetingStartDate1);
               }
 
               if (null != calenderEntity.getMeetingEndDate()) {
                 String meetingEndDate1 =
-                    new SimpleDateFormat("dd-MM-yyyy").format(calenderEntity.getMeetingEndDate());
+                    new SimpleDateFormat("yyyy-MM-dd").format(calenderEntity.getMeetingEndDate());
                 meetingCalenderDTO.setMeetingEndDate(meetingEndDate1);
               }
 
@@ -341,6 +404,9 @@ public class MeetingCalenderService {
 
     return listOfModifiedMeetingInfo;
   }
+  
+  
+  /*------------------------------- ------------------*/
 
   // To be implemented
   public Page<MeetingCalenderDTO> findAllMeetingSortedByLocation(

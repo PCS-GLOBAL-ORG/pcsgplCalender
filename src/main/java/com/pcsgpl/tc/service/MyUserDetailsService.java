@@ -16,16 +16,19 @@ public class MyUserDetailsService implements UserDetailsService{
 
 	@Autowired 
 	  private UserRepository repo;
-        
-    public UserDetails loadUserByUserId(String userID) throws UsernameNotFoundException{
-    	UserEntity userEntity = repo.findByUserID(userID);    	
+   
+	@Override
+    public UserDetails loadUserByUsername(String userID) throws UsernameNotFoundException{
+		System.out.println("user id" +userID);
+    	UserEntity userEntity = repo.findByUserID(userID); 
+    	
 		//UserEntity userEntity1 = repo.findByUserID(userRoleID);
   	  if(userEntity==null) {
   		  throw new UsernameNotFoundException("User Not Found - 404");
   	  }
   	  
   	  UserDetails userDetails =  new UserPricipal(userEntity);
-  	  System.out.println("User Id :"+userID);
+  	  System.out.println("User Id :"+userDetails.getUsername());
   	  
   	  userDetails.getAuthorities().forEach(auth -> {
   		 System.out.print(auth.getAuthority());
@@ -36,25 +39,25 @@ public class MyUserDetailsService implements UserDetailsService{
   	  return userDetails;
     }
      
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
-    	UserEntity userEntity = repo.findByUserName(userName);
-		//UserEntity userEntity1 = repo.findByUserID(userRoleID);
-  	  if(userEntity==null) {
-  		  throw new UsernameNotFoundException("User Not Found - 404");
-  	  }
-  	  
-  	  UserDetails userDetails =  new UserPricipal(userEntity);
-  	  System.out.println("User Name :"+userName);
-  	  
-  	  userDetails.getAuthorities().forEach(auth -> {
-  		 System.out.print(auth.getAuthority());
-  	  });
-  	  
-  	 
-  	
-  	  return userDetails;
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
+//    	UserEntity userEntity = repo.findByUserName(userName);
+//		//UserEntity userEntity1 = repo.findByUserID(userRoleID);
+//  	  if(userEntity==null) {
+//  		  throw new UsernameNotFoundException("User Not Found - 404");
+//  	  }
+//  	  
+//  	  UserDetails userDetails =  new UserPricipal(userEntity);
+//  	  System.out.println("User Name :"+userName);
+//  	  
+//  	  userDetails.getAuthorities().forEach(auth -> {
+//  		 System.out.print(auth.getAuthority());
+//  	  });
+//  	  
+//  	 
+//  	
+//  	  return userDetails;
+//    }
 
 	
 
